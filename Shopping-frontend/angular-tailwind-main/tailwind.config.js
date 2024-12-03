@@ -5,6 +5,7 @@ module.exports = {
   mode: 'jit',
   important: false,
   content: ['./src/**/*.{html,ts}'],
+
   darkMode: 'class',
   theme: {
     extend: {
@@ -67,10 +68,10 @@ module.exports = {
       colors: {
         border: 'hsl(var(--border))',
         background: 'hsl(var(--background))',
-        foreground: 'hsl(var(--foreground))',
+        foreground: '#72ace2',
         primary: {
-          DEFAULT: 'hsl(var(--primary))',
-          foreground: 'hsl(var(--primary-foreground))',
+          DEFAULT: '#b0cef7',
+          foreground: '#72ace2',
         },
         destructive: {
           DEFAULT: 'hsl(var(--destructive))',

@@ -36,9 +36,9 @@ export class ButtonComponent implements OnInit {
 
   impactClasses: Record<ButtonProps['tone'], Record<ButtonProps['impact'], string>> = {
     primary: {
-      bold: 'bg-primary text-primary-foreground hover:bg-primary/90 focus-visible:ring-primary',
-      light: 'bg-primary/20 text-primary hover:bg-primary/30 focus-visible:ring-primary',
-      none: 'bg-transparent text-primary hover:bg-primary/10 focus-visible:ring-primary',
+      bold: 'bg-[#72ace2] text-white hover:bg-[#72ace2]/90 focus-visible:ring-[#72ace2]',
+      light: 'bg-[#72ace2]/20 text-white hover:bg-[#72ace2]/30 focus-visible:ring-[#72ace2]',
+      none: 'bg-transparent text-white hover:bg-[#72ace2]/10 focus-visible:ring-[#72ace2]',
     },
     danger: {
       bold: 'bg-destructive text-white hover:bg-destructive/90 focus-visible:ring-destructive',

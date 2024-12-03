@@ -1,0 +1,168 @@
+.button-row {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  justify-content: center; /* Centre les boutons horizontalement */
+  margin: 0 auto;
+}
+
+@media (max-width: 768px) {
+  .button-row {
+    flex-direction: column; /* Empile les boutons sur petits écrans */
+    gap: 8px;
+  }
+}
+#container {
+  display: flex;
+  justify-content: flex-end;
+  flex-direction: row-reverse;
+
+
+  fa-icon {
+    color: gray;
+    cursor: pointer;
+    font-size: 24px;
+    transition: color 0.3s ease-in-out;
+
+    &.rated,
+    &:hover,
+    &:hover ~ fa-icon {
+      color: gold;
+    }
+  }
+}
+
+fa-icon.rated {
+  color: gold;
+}
+
+.selected-star {
+  color: gold; /* Couleur pour les étoiles sélectionnées */
+}
+
+.star {
+  color: gray; /* Couleur pour les étoiles non sélectionnées */
+}
+.modal-custom {
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  padding: 1.5rem;
+  width: 90%; /* Largeur dynamique */
+  max-width: 500px;
+  margin: auto;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1050;
+}
+
+@media (max-width: 480px) {
+  .modal-custom {
+    width: 95%; /* Plus petit sur mobiles */
+    padding: 1rem;
+  }
+}
+.card-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Colonnes responsives */
+  gap: 20px;
+  padding: 20px;
+}
+
+.card {
+  background-color: hsl(var(--background));
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  transition: transform 0.3s ease-in-out;
+}
+
+.card:hover {
+  transform: scale(1.05); /* Zoom léger au survol */
+}
+
+.card-image {
+  height: 200px;
+  width: 100%;
+  object-fit: cover; /* Assure que l'image est bien cadrée */
+  border-radius: 8px;
+  background-size: cover;
+  background-position: center;
+}
+
+.card-title {
+  margin-top: 16px;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: white;
+}
+
+.card-actions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 16px;
+}
+
+.btn-primary,
+.btn-secondary {
+  padding: 8px 16px;
+  border-radius: 6px;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.btn-primary {
+  background-color: #2563eb;
+  color: white;
+}
+
+.btn-primary:hover {
+  background-color: #1d4ed8;
+}
+
+.btn-secondary {
+  background-color: #2a2a2a;
+  color: #9ca3af;
+}
+
+.btn-secondary:hover {
+  background-color: #444;
+  color: #f1f1f1;
+}
+.card-bid {
+  font-size: 1rem; /* Taille du texte */
+  font-weight: 500; /* Épaisseur du texte */
+  color: #ffffff; /* Texte en blanc */
+  line-height: 1.5; /* Espacement entre les lignes */
+}
+
+.card-bid span {
+  color: #f5c542; /* Couleur jaune pour le prix */
+  font-weight: bold;
+}
+
+
+.button-row .btn {
+  background-color: #2563eb; /* Couleur bleue pour les boutons */
+  border: none; /* Supprime la bordure si nécessaire */
+}
+.card-title-container {
+  display: flex;
+  justify-content: space-between; /* Sépare le nom et le prix aux extrémités */
+  align-items: center;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: white;
+}
+
+.product-name {
+  /* Vous pouvez ajuster ici les styles pour le nom du produit si nécessaire */
+}
+
+.product-price {
+  color: #f5c542; /* Couleur jaune pour le prix */
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+

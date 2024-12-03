@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, inject, OnInit} from '@angular/core';
 import { AngularSvgIconModule } from 'angular-svg-icon';
 import {AbstractControl, FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
 import { ButtonComponent } from 'src/app/shared/components/button/button.component';
-import {RouterLink, RouterModule} from "@angular/router";
+import {Router, RouterLink, RouterModule} from "@angular/router";
 import {CommonModule} from "@angular/common";
+import {AuthService} from "../../authService/auth.service";
 
 
 
@@ -16,30 +17,50 @@ import {CommonModule} from "@angular/common";
 })
 export class SignUpComponent implements OnInit {
   signupFormGroup : FormGroup;
+  private authService = inject(AuthService)
+  submissionSuccessCreate = false;
+  submissionError = false;
+  private router = inject(Router)
 
   constructor( private fb:FormBuilder,
               ) {
     this.signupFormGroup = this.fb.group({
-      name: ['', [Validators.required]],
-      phone: ['', [Validators.required, Validators.pattern('^[0-9]{10}$')]],  // Validité pour un numéro de téléphone à 10 chiffres
-      email: ['', [Validators.required, Validators.email]],  // Validation de l'email
+      name: ['',Validators.pattern(/^[ a-zA-Z]+$/)],
+      phone: ['' ,Validators.pattern('^[0-9]{10}$')],
+      email: ['', [Validators.required],Validators.pattern('^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$')],
       password: ['', [Validators.required]],
-      confirmpassword: ['', [Validators.required]]
-    }, {validator: this.passwordMatchValidator});  // Validation personnalisée pour vérifier la correspondance des mots de passe
+    }, );  // Validation personnalisée pour vérifier la correspondance des mots de passe
 
+  }
+  create() {
+    this.submissionSuccessCreate = false;
+    this.submissionError = false;
+    if (this.signupFormGroup.invalid) {
+      this.signupFormGroup.markAllAsTouched();
+      this.submissionError = true;
+      return;
+    }
+
+    this.authService.signup(this.signupFormGroup.value).subscribe({
+      next: (value) => {
+        console.log(value);
+        this.router.navigate(['/auth/sign-in'], {
+          queryParams: { successcreate: 'true' },
+        });
+      },
+      error: (err) => {
+        console.error('Création échouée', err);
+        this.submissionError = true;
+        if (err.error && err.error.message) {
+          alert(`Error: ${err.error.message}`);
+        }
+      },
+    });
   }
 
   ngOnInit(): void {
 
   }
-  passwordMatchValidator(control: AbstractControl): { [key: string]: boolean } | null {
-    const password = control.get('password');
-    const confirmPassword = control.get('confirmpassword');
 
-    if (password && confirmPassword && password.value !== confirmPassword.value) {
-      return { 'mismatch': true };  // Retourne une erreur si les mots de passe ne correspondent pas
-    }
-    return null;  // Retourne null si tout va bien
-  }
 
 }

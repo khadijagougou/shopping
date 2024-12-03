@@ -14,6 +14,8 @@ export class AuthService {
     return this.http.post(BASIC_URL+AUTH+`/signup`,userDto)
   }
 
-
+  login(userDto : any):Observable<any>{
+    return this.http.post(BASIC_URL+AUTH+`/login`,userDto)
+  }
 
 }

@@ -1,29 +1,19 @@
 <!-- login form -->
-<form class="my-10 space-y-6" [formGroup]="form" (ngSubmit)="onSubmit()">
+<form class="my-10 space-y-6" [formGroup]="signinFormGroup" (ngSubmit)="submitForm()">
   <div class="text-center">
-    <h2 class="mb-1 text-3xl font-semibold text-foreground">Hello Again <span class="text-primary">!</span></h2>
+    <h2 class="mb-1 text-3xl font-semibold text-neutral-50">Hello Again <span class="text-foreground">!</span></h2>
     <p class="text-sm text-muted-foreground">Enter your credential to access your account.</p>
   </div>
 
-  <div routerLink="/dashboard">
-    <app-button full impact="bold" tone="light" shape="rounded" size="medium">
-      <svg-icon src="assets/icons/google-logo.svg" [svgClass]="'h-6 w-6 mr-2'"> </svg-icon>
-      Log in with Google
-    </app-button>
-  </div>
 
-  <div
-    class="my-4 flex items-center before:mt-0.5 before:flex-1 before:border-t before:border-muted after:mt-0.5 after:flex-1 after:border-t after:border-muted">
-    <p class="mx-4 mb-0 text-center text-sm text-muted-foreground">or</p>
-  </div>
-
+<div style="color: #e11d48; font-size: 1rem">
+  {{message}}</div>
   <div class="space-y-3 text-left">
     <div class="form__group">
       <div class="relative">
         <input
           type="text"
           id="email"
-          [ngClass]="{ 'is__invalid-input': submitted && f['email'].errors }"
           class="peer block"
           placeholder=" "
           formControlName="email" />
@@ -33,10 +23,7 @@
           Email address
         </label>
       </div>
-      <div *ngIf="submitted && f['email'].errors" class="is__invalid-error">
-        <div *ngIf="f['email'].errors['required']">Required field</div>
-        <div *ngIf="f['email'].errors['email']">Email must be an email address valid</div>
-      </div>
+
     </div>
 
     <div class="form__group">
@@ -44,7 +31,6 @@
         <input
           [type]="passwordTextType ? 'text' : 'password'"
           id="password"
-          [ngClass]="{ 'is__invalid-input': submitted && f['email'].errors }"
           class="peer block"
           placeholder=" "
           formControlName="password" />
@@ -64,22 +50,14 @@
           </svg-icon>
         </span>
       </div>
-      <div *ngIf="submitted && f['password'].errors" class="is__invalid-error">
-        <div *ngIf="f['password'].errors['required']">Required field</div>
-      </div>
+
     </div>
   </div>
 
-  <div class="mb-2 flex items-center justify-between space-x-3">
-    <div class="flex items-center">
-      <input id="remember-me" name="remember-me" type="checkbox" />
-      <label for="remember-me" class="ml-2 block text-sm text-muted-foreground"> Remember me </label>
-    </div>
 
     <app-button routerLink="/auth/forgot-password" impact="none" tone="primary" shape="rounded" size="small">
       Forgot your password?
     </app-button>
-  </div>
 
   <!-- Submit Button -->
   <div>

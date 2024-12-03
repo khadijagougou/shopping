@@ -1,0 +1,161 @@
+.btn{
+  color: #04223e;
+  background-color: #72ace2;
+  margin-right:  10px;
+  border-radius: 10px;
+}
+.modal-custom {
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  padding: 1.5rem;
+  width: 100%;
+  max-width: 500px;
+  margin: auto;
+  top: 50%;
+  left: 50%;
+  position: fixed;
+  transform: translate(-50%, -50%);
+  z-index: 1050;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 0.5rem;
+}
+
+.modal-body {
+  margin-top: 1rem;
+}
+
+.modal-footer {
+  text-align: right;
+  margin-top: 1.5rem;
+}
+.modal-custom-size {
+  max-width: 80%; /* Largeur du modal */
+  max-height: 100%; /* Hauteur du modal */
+  margin: auto;
+}
+
+
+.test{
+  height: auto;
+}
+// Conteneur principal pour les cartes
+.card-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: flex-start; /* Aligne les boutons en haut */
+  .card {
+    display: flex;
+    flex-direction: column;
+    height: 420px;
+    padding: 20px;
+    border-radius: 10px;
+    background-color: hsl(var(--background));;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s ease-in-out;
+    width: 320px;
+
+    &:hover {
+      transform: scale(1.05); // Zoom léger au survol
+    }
+
+    .card-image {
+      height: 240px;
+      border-radius: 8px;
+      background-size: cover;
+      background-position: center;
+    }
+
+    .card-title {
+      margin-top: 16px;
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: white;
+    }
+
+    .card-bid {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 8px;
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: #9ca3af;
+
+      span {
+        color: white;
+      }
+    }
+
+    .card-actions {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 16px;
+
+      .btn-primary {
+        background-color: #2563eb;
+        color: white;
+        padding: 8px 16px;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        transition: background-color 0.3s ease-in-out;
+
+        &:hover {
+          background-color: #1d4ed8;
+        }
+      }
+
+      .btn-secondary {
+        background-color: #2a2a2a;
+        color: #9ca3af;
+        padding: 8px 16px;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+
+        &:hover {
+          background-color: #444;
+          color: #f1f1f1;
+        }
+      }
+    }
+  }
+}
+@media (max-width: 768px) {
+  .card-container {
+    grid-template-columns: repeat(2, 1fr); // 2 colonnes sur petits écrans
+  }
+}
+
+@media (max-width: 480px) {
+  .card-container {
+    grid-template-columns: 1fr; // 1 colonne sur très petits écrans
+  }
+}
+
+.flex {
+  gap: 0.5rem; /* Ajoute un espacement entre les boutons */
+  margin-left: 1070px;
+}
+.card-container .flex {
+  display: flex;
+  flex-wrap: wrap; /* Permet aux éléments de passer à une nouvelle ligne si nécessaire */
+  gap: 0.5rem; /* Ajoute un espacement entre les boutons */
+  justify-content: flex-end; /* Aligne les boutons à droite */
+  align-items: center; /* Aligne verticalement */
+  margin-bottom: 1.5rem; /* Espace en dessous des boutons */
+}
+
+@media (max-width: 768px) {
+  .card-container .flex {
+    justify-content: center; /* Aligne les boutons au centre sur petits écrans */
+  }
+}

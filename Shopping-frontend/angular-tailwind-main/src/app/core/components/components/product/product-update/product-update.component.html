@@ -1,0 +1,174 @@
+<form class="my-10 space-y-6" [formGroup]="formGroup" (ngSubmit)="saveWithImage()">
+  <div
+    *ngIf="formGroup.invalid && submissionError"
+    class="flex items-center bg-red-100 border border-red-300 text-red-700 px-4 py-3 rounded mt-3 shadow">
+    <svg
+      class="w-5 h-5 mr-2 text-red-600"
+      xmlns="http://www.w3.org/2000/svg"
+      fill="none"
+      viewBox="0 0 24 24"
+      stroke="currentColor">
+      <path
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="2"
+        d="M6 18L18 6M6 6l12 12" />
+    </svg>
+    <span>Failed to update product. Please try again!</span>
+  </div>
+  <div class="card bg-black text-white shadow-lg p-6 rounded-lg">
+    <div class="space-y-3 text-left">
+      <!-- Name Field -->
+      <div class="relative">
+        <label
+          for="name">
+          Name*
+        </label>
+        <input formControlName="name" type="text" id="name" class="peer block w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-primary" placeholder=" " />
+
+        <small *ngIf="formGroup.get('name')?.hasError('required') && formGroup.get('name')?.touched" class="text-red-500">
+          Name is required.
+        </small>
+        <small *ngIf="formGroup.get('name')?.hasError('pattern') && formGroup.get('name')?.touched" class="text-red-500">
+          Name must contain only letters and spaces.
+        </small>
+      </div>
+      <!-- Name Field -->
+      <div class="relative">
+        <label
+          for="name">
+          Sku
+        </label>
+        <input formControlName="sku" type="text" id="sku" class="peer block w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-primary" placeholder=" " />
+
+      </div>
+
+      <!-- Description Field -->
+      <div class="relative">
+        <label
+          for="description">
+          Description
+        </label>
+        <textarea formControlName="description" id="description" class="peer block w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-primary" placeholder=" " rows="4"></textarea>
+
+      </div>
+
+      <div class="relative">
+        <label
+          for="description">
+          Short Description
+        </label>
+        <textarea formControlName="shortDescription" id="shortDescription" class="peer block w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-primary" placeholder=" " rows="4"></textarea>
+      </div>
+
+      <div class="relative">
+        <label
+          for="price">
+          Price
+
+        </label>
+        <input formControlName="price" type="text" id="price" class="peer block w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-primary" placeholder=" " />
+
+        <small *ngIf="formGroup.get('price')?.hasError('pattern') && formGroup.get('price')?.touched" class="text-red-500">
+          Price must be a number.
+        </small>
+      </div>
+
+
+      <div class="relative">
+        <label
+          for="price">
+          Compare Price
+        </label>
+        <input formControlName="comparePrice" type="text" id="comparePrice" class="peer block w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-primary" placeholder=" " />
+
+        <small *ngIf="formGroup.get('comparePrice')?.hasError('pattern') && formGroup.get('comparePrice')?.touched" class="text-red-500">
+          Compare price must be a number.
+        </small>
+      </div>
+
+
+      <div class="relative">
+        <label
+          for="price">
+          Affiliate Price
+        </label>
+        <input formControlName="affiliatePrice" type="text" id="affiliatePrice" class="peer block w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-primary" placeholder=" " />
+
+        <small *ngIf="formGroup.get('affiliatePrice')?.hasError('pattern') && formGroup.get('affiliatePrice')?.touched" class="text-red-500">
+          Affiliate price must be a number.
+        </small>
+      </div>
+
+
+      <div class="relative">
+        <label
+          for="recommendedPrice">
+          Recommended Price
+        </label>
+        <input formControlName="recommendedPrice" type="text" id="recommendedPrice" class="peer block w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-primary" placeholder=" " />
+
+        <small *ngIf="formGroup.get('recommendedPrice')?.hasError('pattern') && formGroup.get('recommendedPrice')?.touched" class="text-red-500">
+          Recommended price must be a number.
+        </small>
+      </div>
+
+      <!-- Image Field -->
+      <div class="relative">
+        <label
+          for="image">
+          Image
+        </label>        <input
+        type="file"
+        formControlName="image"
+        id="image"
+        class="peer block w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
+        placeholder=" "
+        (change)="onFileSelected($event)"
+      />
+
+      </div>
+
+      <div class="relative">
+        <label >Select Option:</label>
+        <select formControlName="option" class="peer block w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-primary mb-3">
+          @for (option of options;track option){
+            <option  [ngValue]="option">{{option.name}}</option>}
+        </select>
+
+        <small *ngIf="formGroup.get('option')?.hasError('required') && formGroup.get('option')?.touched" class="text-red-500">
+          Option is required.
+        </small>
+      </div>
+
+      <div class="relative">
+        <label >Select Category:</label>
+        <select formControlName="category" class="peer block w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-primary mb-3">
+          @for (category of categories;track category){
+            <option  [ngValue]="category">{{category.name}}</option>}
+        </select>
+
+        <small *ngIf="formGroup.get('category')?.hasError('required') && formGroup.get('category')?.touched" class="text-red-500">
+          Category is required.
+        </small>
+      </div>
+
+      <div class="relative">
+        <label >Select Brand:</label>
+        <select formControlName="brand" class="peer block w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-primary mb-3">
+          @for (brand of brands;track brand){
+            <option  [ngValue]="brand">{{brand.name}}</option>}
+        </select>
+
+        <small *ngIf="formGroup.get('brand')?.hasError('required') && formGroup.get('brand')?.touched" class="text-red-500">
+          Brand is required.
+        </small>
+      </div>
+
+    </div>
+    <br>
+    <div>
+      <button type="submit" class="btn btn-primary">Update</button>
+    </div>
+  </div>
+</form>

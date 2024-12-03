@@ -1,0 +1,81 @@
+<form class="my-10 space-y-6" [formGroup]="formGroup" (ngSubmit)="create()" >
+  <div
+    *ngIf="formGroup.invalid && submissionError"
+    class="flex items-center bg-red-100 border border-red-300 text-red-700 px-4 py-3 rounded mt-3 shadow">
+    <svg
+      class="w-5 h-5 mr-2 text-red-600"
+      xmlns="http://www.w3.org/2000/svg"
+      fill="none"
+      viewBox="0 0 24 24"
+      stroke="currentColor">
+      <path
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="2"
+        d="M6 18L18 6M6 6l12 12" />
+    </svg>
+    <span>Failed to create attribute. Please try again!</span>
+  </div>
+
+  <div class="card bg-black text-white shadow-lg p-6 rounded-lg">
+  <div class="space-y-3 text-left">
+    <div class="relative">
+      <label
+        for="name"
+      >
+        Name*
+      </label>
+      <input formControlName="name" type="text" id="name" class="peer block" placeholder=" " />
+
+      <small *ngIf="formGroup.get('name')?.hasError('required') && formGroup.get('name')?.touched" class="text-red-500">
+        Name is required.
+      </small>
+      <small *ngIf="formGroup.get('name')?.hasError('pattern') && formGroup.get('name')?.touched" class="text-red-500">
+        Name must contain only letters and spaces.
+      </small>
+    </div>
+    <div class="relative">
+      <label
+        for="phone"
+      >
+        Order Number*
+      </label>
+      <input type="text" formControlName="orderNumber" id="phone" class="peer block" placeholder=" " />
+
+      <small *ngIf="formGroup.get('orderNumber')?.hasError('required') && formGroup.get('orderNumber')?.touched" class="text-red-500">
+        Order is required.
+      </small>
+      <small *ngIf="formGroup.get('orderNumber')?.hasError('pattern') && formGroup.get('orderNumber')?.touched" class="text-red-500">
+        Order must be a numeric value.
+      </small>
+    </div>
+    <div class="relative">
+      <label
+        for="description">
+        Description
+      </label>
+      <textarea formControlName="description" id="description" class="peer block w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-primary" placeholder=" " rows="4"></textarea>
+
+
+    </div>
+    <div class="relative">
+      <label class="">Select Type*:</label>
+      <select formControlName="type" class="peer block w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-primary mb-3">
+        <option value="Color">Color</option>
+        <option value="Image">Image</option>
+        <option value="Label">Label</option>
+      </select>
+      <small *ngIf="formGroup.get('type')?.hasError('required') && formGroup.get('type')?.touched" class="text-red-500">
+        Type is required.
+      </small>
+    </div>
+    <br>
+
+    </div>
+
+
+    <div>
+      <button type="submit" class="btn btn-primary"   >Create</button>
+    </div>
+  </div>
+</form>

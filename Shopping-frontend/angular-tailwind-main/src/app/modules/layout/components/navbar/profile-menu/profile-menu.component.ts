@@ -1,10 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, inject, OnInit} from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { NgClass } from '@angular/common';
 import { ClickOutsideDirective } from '../../../../../shared/directives/click-outside.directive';
 import { AngularSvgIconModule } from 'angular-svg-icon';
 import { ThemeService } from '../../../../../core/services/theme.service';
 import { trigger, state, style, animate, transition } from '@angular/animations';
+import {TeamDto} from "../../../../../core/components/components/dtos";
+import {AuthService} from "../../../../auth/authService/auth.service";
 
 @Component({
   selector: 'app-profile-menu',
@@ -37,6 +39,19 @@ import { trigger, state, style, animate, transition } from '@angular/animations'
 })
 export class ProfileMenuComponent implements OnInit {
   public isOpen = false;
+  public avatar = ""
+  private authService = inject(AuthService)
+  extractAvatar(user?: TeamDto) {
+    if (user == null) return;
+
+    const fullname = `${user.firstname} ${user.lastname}`;
+    this.avatar = fullname
+      .split(" ")
+      .map(it => it[0])
+      .join('')
+      .toUpperCase();
+  }
+
   public profileMenu = [
     {
       title: 'Your Profile',
@@ -90,7 +105,9 @@ export class ProfileMenuComponent implements OnInit {
 
   constructor(public themeService: ThemeService) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+   // this.extractAvatar()
+  }
 
   public toggleMenu(): void {
     this.isOpen = !this.isOpen;

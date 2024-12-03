@@ -1,0 +1,229 @@
+
+<ng-template #template>
+  <div class="modal-dialog-centered modal-custom  modal-custom-size">
+    <div class="modal-content">
+
+      <div class="modal-header">
+        <h4 class="modal-title">Products Filter</h4>
+        <button
+          type="button"
+          class="btn-close"
+          aria-label="Close"
+          (click)="modalRef?.hide()"
+        ></button>
+      </div>
+      <div class="modal-body test">
+        <div class="row-container" style="display: flex; align-items: flex-start; gap: 16px;">
+
+          <div class="row" style="display: contents; align-items: flex-start; gap: 16px;">
+            <div class="filter-section">
+              <h5>Brands</h5>
+              <div *ngFor="let brand of brands">
+                <input
+                  type="checkbox"
+                  [value]="brand.id"
+                  class="checkbox"
+                  (change)="onBrandChange($event)"
+                />
+                <label>{{ brand.name }}</label>
+              </div>
+            </div>
+
+            <div class="filter-section">
+              <h5>Categories</h5>
+              <div *ngFor="let category of categories">
+                <input
+                  type="checkbox"
+                  [value]="category.id"
+                  class="checkbox"
+                  (change)="onCategoryChange($event)"
+                />
+                <label>{{ category.name }}</label>
+              </div>
+            </div>
+          </div>
+          <div class="row" style="display: contents; align-items: flex-start; gap: 16px;">
+
+            <div class="filter-section">
+
+              <h5>Rating</h5>
+
+              <div *ngFor="let star of [0, 1, 2, 3, 4, 5]" style="display: flex; align-items: center; margin-bottom: 8px;">
+                <input
+                  type="checkbox"
+                  [checked]="rating.includes(star)"
+                  (change)="onStarToggle(star, $event)"
+                  style="margin-right: 8px;"
+                />
+                <label>{{ star }}</label>
+                <!--          <label>{{ star }}★</label>-->
+                <fa-icon
+                  [icon]="faStar"
+                  [ngClass]="{ 'selected-star': rating.includes(star) }"
+                ></fa-icon>
+              </div>
+            </div>
+            <div class="filter-section">
+
+              <h5>Prices</h5>
+
+              <div>
+                <label >Min Price : </label>
+                <input type="number" [(ngModel)]="minPrice" style="width: 150px; margin: 5px">
+                <br>
+                <br>
+                <label >Max Price : </label>
+                <input type="number" [(ngModel)]="maxPrice"style="width: 150px; margin: 4px">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+
+
+        <button class="btn btn-primary"
+                (click)="onApplyFilter()">Appliquer les filtres
+        </button>
+
+        <button
+          class="btn btn-primary"
+          (click)="modalRef?.hide()"
+        >
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+
+</ng-template>
+<div class="flex justify-center lg:justify-end p-4">
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2 sm:w-full lg:w-auto">
+    <div class="p-2">
+      <button
+        class="rounded-md bg-[#2563eb] w-full px-4 py-2.5 text-xs font-semibold btn hover:bg-[#2563eb] hover:text-white"
+        routerLink="/product/product/cart">
+        Products Added to cart
+      </button>
+    </div>
+    <div class="p-2">
+      <button
+        class="rounded-md bg-[#2563eb] w-full px-4 py-2.5 text-xs font-semibold btn hover:bg-[#2563eb] hover:text-white"
+        routerLink="/product/product/favorite">
+        Favorite Products
+      </button>
+    </div>
+    <div class="p-2">
+      <button
+        class="rounded-md bg-[#2563eb] w-full px-4 py-2.5 text-xs font-semibold btn hover:bg-[#2563eb] hover:text-white"
+        (click)="openModal(template)">
+        Filter
+      </button>
+    </div>
+    <div class="p-2">
+      <button
+        class="rounded-md bg-[#2563eb] w-full px-4 py-2.5 text-xs font-semibold btn hover:bg-[#2563eb] hover:text-white"
+        (click)="clearFilters()">
+        Clear Filters
+      </button>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  <h6 style="color: white; font-size: 1rem; text-align: center;">{{ noProduct }}</h6>
+
+  @if (products.length===0 ){
+    <h6 style="text-align: center; color: white; font-size: 1rem; line-height: 1;">
+      No products added yet!
+    </h6>
+
+  }
+  <div class="card-container grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+    @for (product of products; track product) {
+      <div class="card">
+        <div
+          class="card-image"
+          [style.background-image]="'url(' + (product.image || './assets/images/image.png') + ')'"
+        ></div>
+        <div class="card-title-container">
+          <span class="product-name">{{ product.name }}</span>
+          <span class="product-price">{{ product.price }} Dhs</span>
+        </div>
+        <br>
+        <div class="card-bid">
+          Category : {{ product.category.name }}
+          <br>
+          Brand : {{ product.brand.name }}
+        </div>
+        <div class="card-actions">
+          <button
+            class="btn-primary"
+            (click)="toggleCart(product)"
+          >
+            {{ product.cart ? 'Remove From Cart' : 'Add To Cart' }}
+          </button>
+          <button class="btn-secondary" (click)="toggleFavorite(product)">
+            <svg [ngClass]="{'text-red-500': product.favoris === true, 'text-gray-400': product.favoris === false}"
+                 class="h-5 w-5 transition-colors duration-300"
+                 xmlns="http://www.w3.org/2000/svg"
+                 fill="currentColor"
+                 viewBox="0 0 24 24">
+              <path
+                d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 6.42 3.42 5 5.5 5c1.74 0 3.41.81 4.5 2.09C11.09 5.81 12.76 5 14.5 5 16.58 5 18 6.42 18 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+            </svg>
+          </button>
+        </div>
+
+        <div id="container">
+          <fa-icon
+            [icon]="faStar"
+            (click)="rateProduct(5, product.id)"
+            [class.rated]="product.rating >= 5"
+
+          ></fa-icon>
+
+          <fa-icon
+            [icon]="faStar"
+            (click)="rateProduct(4, product.id)"
+            [class.rated]="product.rating >= 4"
+
+          ></fa-icon>
+
+          <fa-icon
+            [icon]="faStar"
+            (click)="rateProduct(3, product.id)"
+            [class.rated]="product.rating >= 3"
+
+          ></fa-icon>
+
+          <fa-icon
+
+            [icon]="faStar"
+            (click)="rateProduct(2, product.id)"
+            [class.rated]="product.rating >= 2"
+
+          ></fa-icon>
+
+          <fa-icon
+            [icon]="faStar"
+            (click)="rateProduct(1, product.id)"
+            [class.rated]="product.rating >= 1"
+
+          ></fa-icon>
+
+
+        </div>
+
+      </div>
+
+    }
+  </div>
+
+
+
+

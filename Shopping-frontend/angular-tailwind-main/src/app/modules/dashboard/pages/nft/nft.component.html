@@ -1,3 +1,105 @@
+<div class="chart-container">
+  <canvas id="MyChart"> {{chart}}</canvas>
+</div>
+
+
+<div class="flex justify-center gap-8" style="margin-top: 40px">
+  <!-- Tableau des produits -->
+  <div class="flex-col rounded-lg bg-background px-8 py-8 w-1/2">
+    <div class="mb-4 flex items-center justify-between">
+      <div class="flex-col items-center">
+        <h3 class="text-md font-bold text-foreground">Last Product List</h3>
+      </div>
+      <button
+        class="flex-none rounded-md bg-card px-4 py-2.5 text-xs font-semibold text-muted-foreground hover:bg-muted hover:text-foreground"
+        routerLink="/product/product/list">
+        View More
+      </button>
+    </div>
+
+    <div class="relative overflow-x-auto">
+      <table class="w-full">
+        <!-- Table head -->
+        <thead class="text-xs uppercase text-muted-foreground">
+        <tr>
+          <th class="py-3 px-4 text-left">#</th>
+          <th class="py-3 px-4 text-left">Name</th>
+          <th class="py-3 px-4 text-left">Image</th>
+          <th class="py-3 px-4 text-left">Sku</th>
+          <th class="py-3 px-4 text-left">Category</th>
+          <th class="py-3 px-4 text-left">Brand</th>
+          <th class="py-3 px-4 text-left">Option</th>
+        </tr>
+        </thead>
+        <tbody>
+          @if (products.length === 0){
+            <tr>
+              <td colspan="8" style="text-align: center; color: white; font-size: 1rem; line-height: 1;">
+                No products added yet!
+              </td>
+            </tr>}
+          @for(product of fourProducts; track product; let i = $index) {
+            <tr style="color: white">
+              <td class="py-3 px-4">{{ i + 1 }}</td>
+              <td class="py-3 px-4">{{ product.name }}</td>
+              <td class="py-3 px-4">
+                <img src="{{ product.image }}" class="img-thumbnail" style="width: 70px; height: 70px; border-radius: 10%; object-fit: cover;">
+              </td>
+              <td class="py-3 px-4">{{ product.sku }}</td>
+              <td class="py-3 px-4">{{ product.category.name }}</td>
+              <td class="py-3 px-4">{{ product.brand.name }}</td>
+              <td class="py-3 px-4">{{ product.option.name }}</td>
+            </tr>}
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Tableau des membres -->
+  <div class="flex-col rounded-lg bg-background px-8 py-8 w-1/2">
+    <div class="mb-4 flex items-center justify-between">
+      <div class="flex-col items-center">
+        <h3 class="text-md font-bold text-foreground">Last Members List</h3>
+      </div>
+      <button
+        class="flex-none rounded-md bg-card px-4 py-2.5 text-xs font-semibold text-muted-foreground hover:bg-muted hover:text-foreground"
+        routerLink="/team/team/list">
+        View More Membres
+      </button>
+    </div>
+
+    <div class="relative overflow-x-auto">
+      <table class="w-full table-auto custom-table">
+        <!-- Table head -->
+        <thead class="text-xs uppercase text-muted-foreground">
+        <tr>
+          <th class="py-3 px-4 text-left">#</th>
+          <th class="py-3 px-4 text-left">Full Name</th>
+          <th class="py-3 px-4 text-left">Email</th>
+          <th class="py-3 px-4 text-left">Phone</th>
+        </tr>
+        </thead>
+        <tbody>
+          @if (fourusers.length === 0){
+            <tr>
+              <td colspan="8" style="text-align: center; color: white; font-size: 1rem; line-height: 1;">
+                No members added yet!
+              </td>
+            </tr>}
+          @for(team of fourusers; track team; let i = $index) {
+            <tr style="color: white">
+              <td class="py-3 px-4">{{ i + 1 }}</td>
+              <td class="py-3 px-4">
+                {{ team.lastname }} {{ team.firstname }}
+              </td>
+              <td class="py-3 px-4">{{ team.email }}</td>
+              <td class="py-3 px-4">{{ team.phone }}</td>
+            </tr>}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
 <div>
   <!-- Header -->
   <app-nft-header></app-nft-header>
